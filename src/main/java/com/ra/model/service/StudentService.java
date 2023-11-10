@@ -18,13 +18,13 @@ public class StudentService implements IGenericService<Student,Integer> {
     }
 
     @Override
-    public Student findId(Integer integer) {
-        return null;
+    public Student findId(Integer id) {
+        return studentDAOImp.findId(id);
     }
 
     @Override
-    public Boolean update(Student student, Integer integer) {
-        return null;
+    public Boolean update(Student student, Integer id) {
+        return studentDAOImp.update(student,id);
     }
 
     @Override

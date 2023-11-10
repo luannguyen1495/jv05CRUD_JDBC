@@ -23,18 +23,49 @@ public class StudentServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // nhaajn method get
         request.setCharacterEncoding("utf-8");
-        List<Student> list = studentService.findAll();
-        request.setAttribute("list", list);
-        request.getRequestDispatcher("views/student.jsp").forward(request, response);
+        String action = request.getParameter("action");
+        if(action == null){
+            showListStudent(request,response);
+        }
+        switch (action){
+            case "edit":
+                Integer id =  Integer.parseInt(request.getParameter("id"));
+                // laya du lieu theo id
+                Student student = studentService.findId(id);
+
+                // hien thi ra form or  view jsp
+                request.setAttribute("student",student);
+                request.getRequestDispatcher("views/student-edit.jsp").forward(request,response);
+                break;
+            case "delete":
+                break;
+        }
+
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println(" poát");
+        request.setCharacterEncoding("utf-8");
+        String action = request.getParameter("action");
         String studentName = request.getParameter("student_name");
         int age = Integer.parseInt(request.getParameter("age"));
         boolean sex = Boolean.parseBoolean(request.getParameter("sex"));
-        studentService.save(new Student(studentName, age, sex));
-        response.sendRedirect("/StudentServlet");
+        if(action == null){
+
+            studentService.save(new Student(studentName, age, sex));
+            response.sendRedirect("/StudentServlet");
+        }
+        if(action.equals("update")){
+            Integer id = Integer.parseInt(request.getParameter("studentCode"));
+            Student student = new Student(id,studentName,age,sex);
+            studentService.update(student,id);
+            response.sendRedirect("/StudentServlet");
+        }
+    }
+
+    public void showListStudent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        List<Student> list = studentService.findAll();
+        request.setAttribute("list", list);
+        request.getRequestDispatcher("views/student.jsp").forward(request, response);
     }
 }

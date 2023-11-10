@@ -30,6 +30,7 @@
                     <th>StudentName</th>
                     <th>Age</th>
                     <th>Sex</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -39,6 +40,9 @@
                       <td>${st.studentName}</td>
                       <td>${st.age}</td>
                       <td>${st.sex}</td>
+                      <td>
+                          <a class="btn btn-primary" href="StudentServlet?action=edit&id=${st.studentCode}">Edit</a>
+                      </td>
                   </tr>
               </c:forEach>
 
