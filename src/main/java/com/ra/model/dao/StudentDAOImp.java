@@ -49,7 +49,33 @@ public class StudentDAOImp implements IGenericDAO<Student,Integer> {
 
     @Override
     public Boolean save(Student student) {
-        return null;
+        Connection connection = null;
+        try {
+            // Bước 1 mở kết noi
+            connection = ConnectionDB.getConnection();
+            // xây dựng câu truy vấn
+            String sql = "INSERT INTO student(studentName,age,sex) VALUES(?,?,?)";
+            PreparedStatement pstm = connection.prepareStatement(sql);
+            pstm.setString(1,student.getStudentName());
+            pstm.setInt(2,student.getAge());
+            pstm.setBoolean(3,student.isSex());
+            // thuc thi
+            int check = pstm.executeUpdate();
+            if(check > 0){
+                return true;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            System.out.println("Dong");
+            try {
+                ConnectionDB.closeConnection(connection);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return false;
     }
 
     @Override

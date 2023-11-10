@@ -14,7 +14,7 @@ public class StudentService implements IGenericService<Student,Integer> {
 
     @Override
     public Boolean save(Student student) {
-        return null;
+        return studentDAOImp.save(student);
     }
 
     @Override

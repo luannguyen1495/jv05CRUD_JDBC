@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: Luannv
-  Date: 11/10/2023
-  Time: 10:59 AM
+  Date: 11/8/2023
+  Time: 9:03 AM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -23,29 +23,30 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-6">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>StudentCode</th>
-                    <th>StudentName</th>
-                    <th>Age</th>
-                    <th>Sex</th>
-                </tr>
-                </thead>
-                <tbody>
-              <c:forEach items="${list}" var="st">
-                  <tr>
-                      <td>${st.studentCode}</td>
-                      <td>${st.studentName}</td>
-                      <td>${st.age}</td>
-                      <td>${st.sex}</td>
-                  </tr>
-              </c:forEach>
+            <h1 class="text-center text-danger">Thêm mới sinh vieen</h1>
+            <form action="<%=request.getContextPath()%>/StudentServlet">
 
-
-                </tbody>
-            </table>
-            <a href="views/student-add.jsp">The moi sinh vien</a>
+                <div class="form-group">
+                    <label for="fullName">Họ Và Tên </label>
+                    <input type="text" class="form-control" id="fullName" name="fullName">
+                </div>
+                <div class="form-group">
+                    <label for="age">Tuổi </label>
+                    <input type="text" class="form-control" id="age" name="age">
+                </div>
+                <div class="form-group">
+                    <label>Gioi tinh</label>
+                    <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="sex" value="1">Nam
+                        </label>
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="sex"  value="0">Nữ
+                        </label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Add New</button>
+            </form>
         </div>
     </div>
 </div>
