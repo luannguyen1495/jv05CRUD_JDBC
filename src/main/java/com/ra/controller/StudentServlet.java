@@ -12,7 +12,8 @@ import java.util.List;
 @WebServlet(name = "StudentServlet", value = "/StudentServlet")
 public class StudentServlet extends HttpServlet {
 
-    private  StudentService studentService;
+    private StudentService studentService;
+
     @Override
     public void init() throws ServletException {
         studentService = new StudentService();
@@ -21,13 +22,19 @@ public class StudentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // nhaajn method get
+        request.setCharacterEncoding("utf-8");
         List<Student> list = studentService.findAll();
-        request.setAttribute("list",list);
-        request.getRequestDispatcher("views/student.jsp").forward(request,response);
+        request.setAttribute("list", list);
+        request.getRequestDispatcher("views/student.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        System.out.println(" poát");
+        String studentName = request.getParameter("student_name");
+        int age = Integer.parseInt(request.getParameter("age"));
+        boolean sex = Boolean.parseBoolean(request.getParameter("sex"));
+        studentService.save(new Student(studentName, age, sex));
+        response.sendRedirect("/StudentServlet");
     }
 }

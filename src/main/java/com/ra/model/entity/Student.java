@@ -16,6 +16,12 @@ public class Student {
         this.sex = sex;
     }
 
+    public Student(String studentName, int age, boolean sex) {
+        this.studentName = studentName;
+        this.age = age;
+        this.sex = sex;
+    }
+
     public int getStudentCode() {
         return studentCode;
     }
